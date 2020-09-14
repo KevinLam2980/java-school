@@ -2,19 +2,23 @@ package com.lambdaschool.schools.services;
 
 import com.lambdaschool.schools.exceptions.ResourceFoundException;
 import com.lambdaschool.schools.exceptions.ResourceNotFoundException;
-import com.lambdaschool.schools.models.Course;
-import com.lambdaschool.schools.models.Instructor;
-import com.lambdaschool.schools.models.StudCourses;
-import com.lambdaschool.schools.models.Student;
+import com.lambdaschool.schools.models.*;
 import com.lambdaschool.schools.repositories.CourseRepository;
 import com.lambdaschool.schools.repositories.InstructorRepository;
 import com.lambdaschool.schools.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -50,6 +54,40 @@ public class CoursesServiceImpl
          * findAll returns an iterator set.
          * iterate over the iterator set and add each element to an array list.
          */
+
+
+        /*
+         * Creates the object that is needed to do a client side Rest API call.
+         * We are the client getting data from a remote API.
+         */
+        RestTemplate restTemplate = new RestTemplate();
+
+        // we need to tell our RestTemplate what format to expect
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        // a couple of common formats
+//         converter.setSupportedMediaTypes(Collections.singletonList(MediaType.TEXT_HTML));
+//         converter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
+        // or we can accept all formats! Easiest but least secure
+        converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
+        restTemplate.getMessageConverters().add(converter);
+
+        // create the url to access the API
+        String requestURL = "http://api.adviceslip.com/advice";
+        // create the responseType expected. Notice the YearFact is the data type we are expecting back from the API!
+        ParameterizedTypeReference<Object> responseType = new ParameterizedTypeReference<>()
+        {
+        };
+        // create the response entity. do the get and get back information
+        ResponseEntity<Object> responseEntity = restTemplate.exchange(requestURL,
+                HttpMethod.GET,
+                null,
+                responseType);
+
+        // now that we have our data, let's print it to the console!
+//        slip advice = responseEntity.getBody();
+        System.out.println(responseEntity.getBody().toString());
+//        System.out.println(advice);
+
         courserepos.findAll()
             .iterator()
             .forEachRemaining(list::add);
