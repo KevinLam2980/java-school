@@ -44,7 +44,7 @@ public class InstructorServiceImpl implements InstructorService{
         restTemplate.getMessageConverters().add(converter);
 
         // create the url to access the API
-        String requestURL = "http://api.adviceslip.com/advice";
+        String requestURL = "https://api.adviceslip.com/advice";
         // create the responseType expected. Notice the YearFact is the data type we are expecting back from the API!
         ParameterizedTypeReference<Advice> responseType = new ParameterizedTypeReference<>(){};
         System.out.println(responseType);

@@ -18,6 +18,7 @@ public class InstructorController {
     @Autowired
     InstructorService instructorService;
 
+    // http://localhost:2019/instructors/instructor/3/advice
     // /instructors/instructor/{instructorid}/advice
     @GetMapping(value = "/instructor/{instructorid}/advice")
     public ResponseEntity<?> getInstructorAdvice(@PathVariable long instructorid)
