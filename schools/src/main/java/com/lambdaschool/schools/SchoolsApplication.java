@@ -19,6 +19,7 @@ public class SchoolsApplication
      */
     public static void main(String[] args)
     {
+
         SpringApplication.run(SchoolsApplication.class,
             args);
     }
