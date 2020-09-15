@@ -54,40 +54,6 @@ public class CoursesServiceImpl
          * findAll returns an iterator set.
          * iterate over the iterator set and add each element to an array list.
          */
-
-
-        /*
-         * Creates the object that is needed to do a client side Rest API call.
-         * We are the client getting data from a remote API.
-         */
-        RestTemplate restTemplate = new RestTemplate();
-
-        // we need to tell our RestTemplate what format to expect
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        // a couple of common formats
-//         converter.setSupportedMediaTypes(Collections.singletonList(MediaType.TEXT_HTML));
-//         converter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
-        // or we can accept all formats! Easiest but least secure
-        converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
-        restTemplate.getMessageConverters().add(converter);
-
-        // create the url to access the API
-        String requestURL = "http://api.adviceslip.com/advice";
-        // create the responseType expected. Notice the YearFact is the data type we are expecting back from the API!
-        ParameterizedTypeReference<Object> responseType = new ParameterizedTypeReference<>()
-        {
-        };
-        // create the response entity. do the get and get back information
-        ResponseEntity<Object> responseEntity = restTemplate.exchange(requestURL,
-                HttpMethod.GET,
-                null,
-                responseType);
-
-        // now that we have our data, let's print it to the console!
-//        slip advice = responseEntity.getBody();
-        System.out.println(responseEntity.getBody().toString());
-//        System.out.println(advice);
-
         courserepos.findAll()
             .iterator()
             .forEachRemaining(list::add);

@@ -119,4 +119,12 @@ public class Instructor
     {
         this.courses = courses;
     }
+
+    public String getAdvice() {
+        return advice;
+    }
+
+    public void setAdvice(String advice) {
+        this.advice = advice;
+    }
 }

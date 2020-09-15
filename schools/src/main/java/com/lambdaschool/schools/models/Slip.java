@@ -7,31 +7,48 @@ import java.util.HashMap;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"slip"})
+@JsonPropertyOrder({
+        "id",
+        "advice"
+})
 //@JsonIgnoreProperties(ignoreUnknown = true)
-public class Advice {
+public class Slip {
 
-    @JsonProperty("slip")
-    private Slip slip;
+    @JsonProperty("id")
+    private int id;
+
+    @JsonProperty("advice")
+    private String advice;
 
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public Advice() {
+    public Slip() {
     }
 
-    public Advice(Slip slip) {
-        this.slip = slip;
+    public Slip(int id, String advice) {
+        this.id = id;
+        this.advice = advice;
     }
 
-    @JsonProperty("slip")
-    public Slip getSlip() {
-        return slip;
+    @JsonProperty("id")
+    public int getId() {
+        return id;
     }
 
-    @JsonProperty("slip")
-    public void setSlip(Slip slip) {
-        this.slip = slip;
+    @JsonProperty("id")
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @JsonProperty("advice")
+    public String getAdvice() {
+        return advice;
+    }
+
+    @JsonProperty("advice")
+    public void setAdvice(String advice) {
+        this.advice = advice;
     }
 
     @JsonAnyGetter
@@ -44,10 +61,4 @@ public class Advice {
         this.additionalProperties.put(name, value);
     }
 
-    @Override
-    public String toString() {
-        return "Advice{" +
-                "Slip=" + slip +
-                '}';
-    }
 }
